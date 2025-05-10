@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -16,15 +17,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        $error = "Username sudah ada!";
-        header("Location: /PraktikumPHP/PHP1/register.php?error=" . urlencode($error));
+        $_SESSION['error'] = "Username sudah digunakan!";
+        header("Location: /PraktikumPHP/PHP1/register.php");
         exit();
     }
 
     // buat perilaku ketika password tidak sama
     if ($password !== $confirm_password) {
-        $error = "Password mismatched!";
-        header("Location: /PraktikumPHP/PHP1/register.php?error=" . urlencode($error));
+        $_SESSION['error'] = "Password tidak cocok!";
+        header("Location: /PraktikumPHP/PHP1/register.php");
         exit();
     }
 
@@ -40,9 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: /PraktikumPHP/PHP1/login.php");
         exit();
     } else {
-        // buat perilaku ketika register gagal
-        $error = "Registrasi gagal!";
-        header("Location: /PraktikumPHP/PHP1/register.php?error=" . urlencode($error));
+        $_SESSION['error'] = "Terjadi kesalahan saat registrasi. Silakan coba lagi.";
+        header("Location: /PraktikumPHP/PHP1/register.php");
         exit();
     }
 }
