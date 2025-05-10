@@ -1,9 +1,9 @@
 <?php
 // Konfigurasi Database
 $host = "localhost";
-$username = "";
+$username = "root";
 $password = "";
-$database = "";
+$database = "tugas_login_register";
 
 // Membuat koneksi
 $conn = mysqli_connect($host, $username, $password, $database);

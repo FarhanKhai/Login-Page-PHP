@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -5,14 +8,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrasi</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="form-container">
             <h2>Registrasi</h2>
             <?php
-            if (isset($error)) {
-                echo '<div class="error-message">' . $error . '</div>';
+            if (isset($_SESSION['error'])) {
+                echo '<div class="error-message">' . htmlspecialchars($_SESSION['error']) . '</div>';
+                unset($_SESSION['error']); // Clear the error message after displaying it
             }
             ?>
             <form action="includes/register_process.php" method="POST">
@@ -34,7 +45,7 @@
                 </div>
                 <button type="submit" class="btn">Daftar</button>
             </form>
-            <p class="login-link">Sudah punya akun? <a href="">Login di sini</a></p>
+            <p class="login-link">Sudah punya akun? <a href="/PraktikumPHP/PHP1/login.php">Login di sini</a></p>
         </div>
     </div>
 </body>
