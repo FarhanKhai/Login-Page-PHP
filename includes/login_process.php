@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    // Perilaku ketika username tidak ditemukan
+    // buat perilaku ketika username tidak ditemukan
     $query = "SELECT * FROM users WHERE username = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $username);
@@ -19,17 +19,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Perilaku ketika username ditemukan
+    // buat perilaku ketika username ditemukan
     $user = $result->fetch_assoc();
 
-    // Perilaku ketika password salah
+    // buat perilaku ketika password salah
     if (md5($password) !== $user['password']) {
         $_SESSION['error'] = "Password salah!";
         header("Location: /PraktikumPHP/PHP1/login.php");
         exit();
     }
 
-    // Perilaku ketika login berhasil
+    // buat Perilaku ketika login berhasil
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['username'] = $user['username'];
     $_SESSION['role'] = $user['role'];
